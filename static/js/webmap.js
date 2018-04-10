@@ -77,9 +77,8 @@ map.on('draw:created', function(e) {
 			for (var f in layer._renderer._layers){
 				var feature = layer._renderer._layers[f];
 			}
-			var userPolygon = feature.toGeoJSON();
-			console.log(userPolygon)
-			callFME($('#usr').val(),$('#pwd').val())
+			var userPolygon = JSON.stringify(feature.toGeoJSON());
+			callFME($('#usr').val(),$('#pwd').val(),userPolygon)
 		});
 	});
 
