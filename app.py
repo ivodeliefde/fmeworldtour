@@ -1,7 +1,7 @@
 ################################################################################
 # Import dependencies
 
-from flask import Flask,render_template, request, send_file
+from flask import Flask, render_template, request, send_file, abort, Response
 from copy import deepcopy
 from bs4 import BeautifulSoup
 import urllib
@@ -40,8 +40,12 @@ def runDownloadService(repo,workspace,token,params):
     url = "{}/fmedatadownload/{}/{}?{}&token={}".format(base_url,repo,workspace,params,token)
     print(url)
     r = requests.get(url)
+    if not "A fatal error has occurred" in r.text:
+        return False
+
     print(r.text)
     soup = BeautifulSoup(r.text, 'html.parser')
+
     downloadUrl = soup.a.get('href')
     print(downloadUrl)
     return downloadUrl
@@ -132,6 +136,8 @@ def callFME():
     aoi = reverseOrderCoords(request.form['aoi'])
     params = urllib.parse.quote("&GeoJSON='{}'dataset=NWB&opt_showresult=false&opt_servicemode=sync".format(aoi), safe='')
     downloadUrl = runDownloadService(repo,workspace,token,params)
+    if downloadUrl == False:
+        abort(500)
     response = prepFiles(downloadUrl, temp_path)
     return json.dumps(response)
 
