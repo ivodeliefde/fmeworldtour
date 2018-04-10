@@ -70,7 +70,7 @@ map.on('draw:created', function(e) {
   var type = e.layerType,
   layer = e.layer;
   editableLayers.addLayer(layer);
-	$("#download-panel").html('<form id=fmeform><div class="form-group"><div class="form-group"><label for="usr">Username:</label><input type="text" class="form-control" id="usr"></div><div class="form-group"><label for="pwd">Password:</label><input type="password" class="form-control" id="pwd"></div></div><button id="fmesubmit" type="button" class="btn btn-default">Submit</button></form>')
+	$("#download-panel").html('<form id=fmeform><div class="form-group"><div class="form-group"><label for="usr">Username:</label><input type="text" class="form-control" id="usr"></div><div class="form-group"><label for="pwd">Password:</label><input type="password" class="form-control" id="pwd"></div><div class="form-group"><label for="dataset">Dataset:</label><select class="form-control" id="dataset"><option value="AHN3">AHN3 - 5 meter</option><option value="NWB">NWB roads</option></select></div></div><button id="fmesubmit" type="button" class="btn btn-default">Submit</button></form>')
 
 	$("#fmesubmit").click(function(){
 		editableLayers.eachLayer(function (layer) {
